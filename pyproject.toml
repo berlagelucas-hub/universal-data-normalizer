@@ -32,4 +32,4 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/python_service_template"]
+packages = ["src/universal_data_normalizer"]

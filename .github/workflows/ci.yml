@@ -142,4 +142,4 @@ jobs:
 
       - name: Smoke test
         run: |
-          docker run --rm python-service-template:latest python -m python_service_template
+          docker run --rm python-service-template:latest python -m universal_data_normalizer

@@ -24,4 +24,4 @@ COPY --from=builder /app/dist/*.whl .
 
 RUN pip install --no-cache-dir *.whl && rm *.whl
 
-CMD ["python", "-m", "python_service_template"]
+CMD ["python", "-m", "universal_data_normalizer"]
