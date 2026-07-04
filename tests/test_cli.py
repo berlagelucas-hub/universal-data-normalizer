@@ -1,4 +1,4 @@
-from python_service_template.cli import get_version
+from universal_data_normalizer.cli import get_version
 
 
 def test_version():
