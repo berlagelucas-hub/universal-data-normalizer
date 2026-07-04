@@ -1,5 +1,5 @@
 [project]
-name = "python-service-template"
+name = "universal-data-normalizer"
 version = "0.1.0"
 description = "Python service template"
 readme = "README.md"

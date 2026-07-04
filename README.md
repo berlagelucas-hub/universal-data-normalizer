@@ -1,6 +1,6 @@
-# Python Service Template
+# Universal Data Normalizer
 
-A Python service template using
+A Python tool to normalize tabular datasets from CSV, JSON and Excel into a unified schema.
 
 - uv
 - Ruff
