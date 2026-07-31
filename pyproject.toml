@@ -7,6 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
     "pandas>=3.0.3",
     "pyarrow>=24.0.0",
+    "typer>=0.26.8",
 ]
 
 [dependency-groups]
