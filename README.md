@@ -1,14 +1,20 @@
 # Universal Data Normalizer
 
-Ein CLI-Tool, das Tabellendaten aus verschiedenen Quellen (CSV, JSON, Excel,
-Parquet) einlesen, in ein einheitliches Schema bringen und in ein offenes,
-Lakehouse-freundliches Format (Parquet) schreiben kann — als Vorverarbeitungs-
-schicht vor einem Data Lakehouse.
+[![CI](https://github.com/berlagelucas-hub/universal-data-normalizer/actions/workflows/ci.yml/badge.svg)](https://github.com/berlagelucas-hub/universal-data-normalizer/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.13+](https://img.shields.io/badge/python-3.13%2B-blue.svg)](pyproject.toml)
+
+Ein CLI-Tool, das Tabellendaten aus verschiedenen Quellen (CSV, JSON, JSON
+Lines, XML, Excel, Parquet) einlesen, in ein einheitliches Schema bringen und
+in ein offenes, Lakehouse-freundliches Format (Parquet) schreiben kann — als
+Vorverarbeitungsschicht vor einem Data Lakehouse.
 
 ## Features
 
 - **Mehrere Formate**: CSV (mit automatischer Trennzeichen-Erkennung), JSON,
-  Excel (`.xlsx`) und Parquet als Ein- und Ausgabeformat.
+  JSON Lines/NDJSON, XML (z. B. ERP-/SAP-Exporte), Excel (`.xlsx`) und
+  Parquet als Ein- und Ausgabeformat; `.txt`-Exporte zusätzlich als
+  Eingabeformat (siehe unten).
 - **Batch-Verarbeitung**: beliebig viele Dateien und/oder Verzeichnisse in
   einem Lauf, einzeln fehlertolerant (eine fehlerhafte Datei stoppt nicht den
   ganzen Lauf).
@@ -63,6 +69,39 @@ JSON-Objekt mit Spaltenregeln (`required`, `dtype`, `nullable`), siehe
 `examples/schema.json`. Verstöße werden standardmäßig als Hinweise im
 Laufbericht aufgeführt; mit `--strict` gelten sie als Fehler für die
 jeweilige Datei.
+
+### `.txt`-Dateien
+
+Enterprise-`.txt`-Exporte sind in der Praxis fast immer eines von zwei
+Dingen: getrennter Text (Tab/Pipe/Semikolon — faktisch CSV mit anderer
+Endung) oder ein Fixed-Width-Export ohne jedes Trennzeichen (klassischer
+Mainframe-/Altsystem-Export, Spalten durch Zeichenposition definiert). Der
+Normalizer erkennt zuerst, ob eines der bekannten Trennzeichen vorkommt
+(dann wie CSV gelesen); andernfalls wird mit pandas' Fixed-Width-Reader
+(`colspecs="infer"`) versucht, die Spaltenbreiten aus dem Inhalt
+abzuleiten. Das ist ein **Best-Effort-Verfahren**, kein Garant — bei sehr
+kurzen oder unregelmäßigen Dateien kann die Spaltenerkennung danebenliegen;
+im Zweifel das Ergebnis prüfen. `.txt` ist nur Eingabe-, kein
+Ausgabeformat, da es kein eindeutiges offenes Zielformat beschreibt.
+
+### Umfangreiches Beispiel
+
+`examples/advanced/` bildet einen realistischen Konsolidierungsfall nach:
+Kundenstammdaten aus vier unterschiedlich benannten/strukturierten
+Quellsystemen (deutscher Webshop als CSV, englische Partner-API als JSON,
+Partner-Excel mit Kürzeln, ERP/SAP-Export als XML) plus einem echten
+Mainframe-Fixed-Width-Export (`legacy_export.txt`), der zwar technisch
+eingelesen wird, aber keine der erwarteten Zielspalten enthält — die
+Schema-Prüfung macht das pro Datei sichtbar, ohne den gesamten Lauf
+abzubrechen:
+
+```bash
+uv run udn examples/advanced/data \
+  --output-dir out \
+  --mapping examples/advanced/mapping.json \
+  --schema examples/advanced/schema.json \
+  --report out/report.json
+```
 
 ## Entwicklung
 

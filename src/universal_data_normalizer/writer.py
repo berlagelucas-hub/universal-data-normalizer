@@ -24,12 +24,25 @@ def write_excel(df: pd.DataFrame, path: Path) -> None:
     df.to_excel(path, index=False, engine="openpyxl")
 
 
+def write_xml(df: pd.DataFrame, path: Path) -> None:
+    """Write a DataFrame as XML (one <row> element per record)."""
+    df.to_xml(path, index=False, parser="etree")
+
+
+def write_jsonl(df: pd.DataFrame, path: Path) -> None:
+    """Write a DataFrame as JSON Lines / NDJSON (one JSON object per line)."""
+    df.to_json(path, orient="records", lines=True)
+
+
 WRITERS: dict[str, Callable[[pd.DataFrame, Path], None]] = {
     ".csv": write_csv,
     ".json": write_json,
+    ".jsonl": write_jsonl,
+    ".ndjson": write_jsonl,
     ".parquet": write_parquet,
     ".pq": write_parquet,
     ".xlsx": write_excel,
+    ".xml": write_xml,
 }
 
 

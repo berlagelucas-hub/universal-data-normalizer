@@ -55,6 +55,61 @@ def test_read_excel(tmp_path: Path) -> None:
     assert list(df.columns) == ["name", "age"]
 
 
+def test_read_txt_detects_delimiter_like_csv(tmp_path: Path) -> None:
+    path = tmp_path / "data.txt"
+    path.write_text("name\tage\nMax\t24\nAnna\t31\n", encoding="utf-8")
+
+    df = read_file(path)
+
+    assert list(df.columns) == ["name", "age"]
+    assert len(df) == 2
+
+
+def test_read_txt_falls_back_to_fixed_width(tmp_path: Path) -> None:
+    path = tmp_path / "data.txt"
+    path.write_text(
+        "CUSTID    NAME                SINCE   \n"
+        "00001234  MUELLER ANNA        20190101\n"
+        "00001235  SCHMIDT PETER       20200615\n"
+        "00001236  WEBER LISA          20211203\n",
+        encoding="utf-8",
+    )
+
+    df = read_file(path)
+
+    assert list(df.columns) == ["CUSTID", "NAME", "SINCE"]
+    assert len(df) == 3
+
+
+def test_read_jsonl(tmp_path: Path) -> None:
+    path = tmp_path / "data.jsonl"
+    path.write_text(
+        '{"name": "Max", "age": 24}\n{"name": "Anna", "age": 31}\n',
+        encoding="utf-8",
+    )
+
+    df = read_file(path)
+
+    assert list(df.columns) == ["name", "age"]
+    assert len(df) == 2
+
+
+def test_read_xml(tmp_path: Path) -> None:
+    path = tmp_path / "data.xml"
+    path.write_text(
+        "<Customers>"
+        "<Customer><CUST_FNAME>Max</CUST_FNAME><CUST_AGE>24</CUST_AGE></Customer>"
+        "<Customer><CUST_FNAME>Anna</CUST_FNAME><CUST_AGE>31</CUST_AGE></Customer>"
+        "</Customers>",
+        encoding="utf-8",
+    )
+
+    df = read_file(path)
+
+    assert list(df.columns) == ["CUST_FNAME", "CUST_AGE"]
+    assert len(df) == 2
+
+
 def test_detect_csv_delimiter_falls_back_when_sniffer_fails(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -108,7 +163,7 @@ def test_read_file_missing(tmp_path: Path) -> None:
 
 
 def test_read_file_unsupported_extension(tmp_path: Path) -> None:
-    path = tmp_path / "data.txt"
+    path = tmp_path / "data.pdf"
     path.write_text("irrelevant", encoding="utf-8")
 
     with pytest.raises(ValueError, match="Unsupported file format"):
@@ -118,7 +173,7 @@ def test_read_file_unsupported_extension(tmp_path: Path) -> None:
 def test_discover_input_files_expands_directory(tmp_path: Path) -> None:
     (tmp_path / "a.csv").write_text("a,b\n1,2\n", encoding="utf-8")
     (tmp_path / "b.json").write_text("[]", encoding="utf-8")
-    (tmp_path / "ignored.txt").write_text("nope", encoding="utf-8")
+    (tmp_path / "ignored.pdf").write_text("nope", encoding="utf-8")
 
     files = discover_input_files([tmp_path])
 
@@ -126,7 +181,7 @@ def test_discover_input_files_expands_directory(tmp_path: Path) -> None:
 
 
 def test_discover_input_files_keeps_explicit_unsupported_file(tmp_path: Path) -> None:
-    path = tmp_path / "data.txt"
+    path = tmp_path / "data.pdf"
     path.write_text("irrelevant", encoding="utf-8")
 
     files = discover_input_files([path])

@@ -59,6 +59,28 @@ def read_csv(path: Path) -> pd.DataFrame:
     )
 
 
+def read_txt(path: Path) -> pd.DataFrame:
+    """
+    Read a plain .txt export.
+
+    Enterprise ".txt" drops come in two common shapes: delimited text (tab,
+    pipe, semicolon - effectively CSV under a different extension) or
+    fixed-width positional records (classic mainframe/legacy exports with no
+    delimiter at all, columns aligned by character position). Delimited
+    text is tried first since it's deterministic and far more common; if
+    none of the common delimiters actually occur in the file, this falls
+    back to pandas' fixed-width reader with inferred column boundaries,
+    which is a best-effort heuristic rather than a guarantee.
+    """
+
+    sample = path.read_text(encoding="utf-8", errors="ignore")[:4096]
+
+    if any(delimiter in sample for delimiter in _COMMON_DELIMITERS):
+        return read_csv(path)
+
+    return pd.read_fwf(path, colspecs="infer")
+
+
 def read_json(path: Path) -> pd.DataFrame:
     """Read a JSON file into a DataFrame."""
     return pd.read_json(path)
@@ -74,12 +96,32 @@ def read_excel(path: Path) -> pd.DataFrame:
     return pd.read_excel(path, engine="openpyxl")
 
 
+def read_xml(path: Path) -> pd.DataFrame:
+    """
+    Read an XML file into a DataFrame.
+
+    Expects a flat, repeating-record shape (e.g. <root><record><field>...),
+    which covers typical ERP/SAP-style exports. Uses the stdlib etree
+    backend so no extra XML library (e.g. lxml) is required.
+    """
+    return pd.read_xml(path, parser="etree")
+
+
+def read_jsonl(path: Path) -> pd.DataFrame:
+    """Read a JSON Lines / NDJSON file (one JSON object per line) into a DataFrame."""
+    return pd.read_json(path, lines=True)
+
+
 READERS: dict[str, Callable[[Path], pd.DataFrame]] = {
     ".csv": read_csv,
     ".json": read_json,
+    ".jsonl": read_jsonl,
+    ".ndjson": read_jsonl,
     ".parquet": read_parquet,
     ".pq": read_parquet,
+    ".txt": read_txt,
     ".xlsx": read_excel,
+    ".xml": read_xml,
 }
 
 

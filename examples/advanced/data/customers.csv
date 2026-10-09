@@ -1,0 +1,56 @@
+Vorname;Nachname;E-Mail;Geburtsdatum;Mitglied seit;Punkte;Aktiv;Land;Telefon
+Katharina;Wagner;katharina.wagner@example.de;08.04.1977;2017-12-04;;ja;DE;+49 157 9478454
+Nele;Krause;nele.krause@example.de;08.07.1994;2022-10-09;326;ja;CH;+41 158 3608513
+Paul;Krüger;paul.krüger@example.de;28.06.1966;2020-10-09;1098;ja;AT;+43 152 5918715
+Laura;Richter;laura.richter@example.com;22.01.1964;2018-05-03;778;ja;CH;+41 176 7120868
+Emilia;Lehmann;emilia.lehmann@example.com;21.11.2004;2016-10-21;501;ja;AT;+43 158 4684531
+Noah;Becker;noah.becker@mail-partner.eu;03.05.1985;2018-10-23;1022;ja;AT;+43 164 3396987
+Simon;Hartmann;simon.hartmann@mail-partner.eu;19.12.1976;2021-10-13;283;ja;CH;+41 174 1790481
+Katharina;Klein;katharina.klein@webshop-demo.io;03.10.1987;2021-07-20;1988;ja;CH;+41 171 2921859
+Theresa;Krause;theresa.krause@mail-partner.eu;14.05.1967;2017-08-01;1560;ja;AT;+43 177 6007072
+Hannah;Meyer;hannah.meyer@example.de;01.09.1994;2024-06-16;743;ja;DE;+49 157 1971823
+Mia;Herrmann;mia.herrmann@webshop-demo.io;25.09.1964;2017-03-22;338;ja;AT;+43 163 4553384
+Nele;Weber;nele.weber@example.de;12.11.2002;2022-09-15;131;ja;AT;+43 167 4860684
+Mia;Köhler;mia.köhler@example.com;03.04.1963;2015-06-03;994;nein;CH;+41 173 8930103
+David;Schröder;david.schröder@webshop-demo.io;22.02.1966;2021-06-14;;ja;DE;
+David;Wagner;david.wagner@example.com;18.04.1972;2022-03-14;511;ja;DE;
+Mia;König;mia.könig@webshop-demo.io;16.07.1970;2022-04-28;337;nein;DE;+49 158 8633773
+Hannah;Richter;;19.01.1973;2023-01-24;1196;ja;AT;+43 155 1954280
+Tobias;Klein;tobias.klein@example.com;22.02.1998;2018-07-04;81;ja;DE;+49 171 9770838
+Emilia;Lehmann;emilia.lehmann@mail-partner.eu;09.04.1980;2021-03-22;1902;ja;CH;+41 150 8688755
+Mia;Hartmann;mia.hartmann@mail-partner.eu;05.05.1992;2020-02-08;897;ja;DE;
+Nico;Lehmann;nico.lehmann@example.com;04.05.1968;2016-12-18;1238;ja;DE;+49 156 5428914
+Julia;Becker;julia.becker@mail-partner.eu;27.07.2000;2019-01-01;1304;nein;DE;+49 173 8412769
+Tim;Hoffmann;tim.hoffmann@mail-partner.eu;05.12.1964;2023-01-27;303;ja;DE;+49 159 7117837
+Julia;Meyer;julia.meyer@webshop-demo.io;22.04.2003;2016-06-25;1534;ja;DE;+49 177 3726327
+Julia;Schröder;julia.schröder@example.com;11.12.1971;2021-11-28;1612;ja;DE;+49 177 1649691
+Emilia;Braun;emilia.braun@webshop-demo.io;08.04.1979;2015-11-07;;nein;AT;+43 158 6891254
+Moritz;Hartmann;moritz.hartmann@example.de;09.02.1961;2017-10-09;889;ja;AT;
+Lina;Becker;lina.becker@example.com;17.01.1987;2023-11-24;143;ja;CH;+41 169 6266630
+Simon;Weber;simon.weber@mail-partner.eu;14.11.1979;2020-07-23;392;ja;CH;+41 171 3919694
+Sophie;Hartmann;sophie.hartmann@mail-partner.eu;07.05.1979;2021-10-20;905;ja;DE;+49 165 3846949
+Johanna;Lehmann;johanna.lehmann@example.com;03.06.1999;2018-11-10;;ja;CH;+41 165 2221854
+Nele;Köhler;nele.köhler@example.de;08.07.1991;2017-11-23;1762;nein;AT;+43 174 8132769
+Jonas;Hartmann;jonas.hartmann@mail-partner.eu;05.08.1967;2022-11-17;1825;nein;DE;+49 178 9468772
+Julia;Klein;julia.klein@webshop-demo.io;09.08.1990;2018-11-09;562;ja;CH;+41 159 4934149
+Julia;Hartmann;julia.hartmann@example.com;08.03.1968;2021-12-05;834;nein;DE;+49 163 2044645
+Sophie;König;sophie.könig@example.de;28.01.2004;2024-07-16;611;ja;CH;+41 167 4700025
+Felix;Zimmermann;felix.zimmermann@webshop-demo.io;22.06.1984;2021-12-06;1274;nein;DE;
+Hannah;Braun;hannah.braun@mail-partner.eu;13.05.1963;2020-04-15;1801;ja;DE;+49 176 8072684
+Elias;Hoffmann;elias.hoffmann@example.de;12.01.1994;2018-11-03;1944;nein;CH;+41 169 3556551
+Moritz;Wagner;moritz.wagner@example.de;23.08.1973;2019-06-06;335;nein;CH;+41 168 1430812
+Sophie;Köhler;sophie.köhler@mail-partner.eu;23.10.1964;2018-02-23;1229;nein;DE;+49 175 1689025
+Moritz;Meyer;moritz.meyer@webshop-demo.io;11.11.1992;2015-07-27;1967;ja;DE;+49 172 3566765
+Jan;Walter;jan.walter@example.com;14.08.1990;2024-05-11;177;nein;CH;+41 157 8796514
+Clara;Hoffmann;clara.hoffmann@mail-partner.eu;16.03.1980;2018-06-26;1802;ja;AT;+43 167 1170307
+Mia;Neumann;mia.neumann@webshop-demo.io;18.08.1986;2018-12-16;35;ja;CH;+41 162 5081983
+Elias;Hartmann;elias.hartmann@webshop-demo.io;24.07.1982;2023-06-12;514;ja;CH;
+Emilia;Richter;emilia.richter@mail-partner.eu;24.05.1990;2024-09-20;1705;ja;CH;+41 161 4010529
+Lina;Becker;lina.becker@webshop-demo.io;23.05.1995;2017-11-28;25;ja;DE;+49 165 8389840
+Lina;Zimmermann;lina.zimmermann@example.de;16.07.1964;2016-10-21;1661;nein;DE;
+Jan;Werner;jan.werner@webshop-demo.io;13.09.1974;2022-08-10;;ja;CH;+41 153 4486102
+Moritz;Krüger;moritz.krüger@webshop-demo.io;18.03.1975;2016-03-01;1216;nein;DE;+49 157 5833597
+Mia;Lehmann;mia.lehmann@example.com;19.11.1976;2018-07-04;1860;ja;DE;+49 152 2000560
+Jan;Herrmann;jan.herrmann@webshop-demo.io;04.08.1978;2022-12-10;1024;ja;CH;+41 152 1668752
+Jan;Fischer;jan.fischer@mail-partner.eu;22.04.1965;2024-10-01;1562;ja;DE;+49 166 8419378
+Laura;Schröder;laura.schröder@mail-partner.eu;16.02.1991;2020-07-11;1756;nein;CH;+41 172 9312590

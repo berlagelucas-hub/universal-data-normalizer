@@ -1,0 +1,13 @@
+{
+  "columns": {
+    "first_name": { "required": true, "dtype": "string", "nullable": false },
+    "last_name": { "required": true, "dtype": "string", "nullable": false },
+    "email": { "required": true, "dtype": "string", "nullable": false },
+    "birth_date": { "required": true, "dtype": "string", "nullable": false },
+    "member_since": { "required": true, "dtype": "string", "nullable": false },
+    "loyalty_points": { "required": true, "dtype": "float", "nullable": false },
+    "is_active": { "required": false, "dtype": "boolean", "nullable": true },
+    "country": { "required": true, "dtype": "string", "nullable": false },
+    "phone": { "required": false, "dtype": "string", "nullable": true }
+  }
+}

@@ -6,7 +6,9 @@ import pytest
 from universal_data_normalizer.writer import write_file
 
 
-@pytest.mark.parametrize("extension", ["csv", "json", "parquet", "xlsx"])
+@pytest.mark.parametrize(
+    "extension", ["csv", "json", "jsonl", "ndjson", "parquet", "xlsx", "xml"]
+)
 def test_write_file_round_trips(tmp_path: Path, extension: str) -> None:
     df = pd.DataFrame({"name": ["Max"], "age": [24]})
     path = tmp_path / f"data.{extension}"
