@@ -8,3 +8,15 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Test/coverage artifacts
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+
+# Editor lock files
+.~lock.*#
+
+# Local run output (not part of the published examples)
+/output.*

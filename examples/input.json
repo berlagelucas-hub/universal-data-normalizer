@@ -1,0 +1,12 @@
+[
+    {
+        "firstname": "Max",
+        "lastname": "Müller",
+        "geburtsdatum": "1990-05-12"
+    },
+    {
+        "firstname": "Anna",
+        "lastname": "Schmidt",
+        "geburtsdatum": "1988-11-30"
+    }
+]

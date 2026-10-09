@@ -1,52 +1,46 @@
 from __future__ import annotations
 
 import csv
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from pathlib import Path
 
 import pandas as pd
+
+
+_COMMON_DELIMITERS = (";", ",", "\t", "|")
+_DEFAULT_DELIMITER = ","
 
 
 def _detect_csv_delimiter(path: Path) -> str:
     """
     Detect the delimiter of a CSV file.
 
-    First uses csv.Sniffer. If detection fails, falls back to a list of
-    common delimiters.
-
-    Raises:
-        ValueError:
-            If no suitable delimiter can be determined.
+    First uses csv.Sniffer, restricted to a whitelist of plausible
+    delimiter characters: left unrestricted, Sniffer can latch onto an
+    arbitrary letter that happens to repeat in a consistent column position
+    (e.g. mistaking "a" for the delimiter in a single-column file containing
+    "name"/"Max"), silently shredding otherwise valid data. If Sniffer can't
+    decide, falls back to counting occurrences of the whitelisted
+    delimiters. A file with none of them is treated as a single column and
+    defaults to a comma, since there is nothing to split either way.
     """
 
     sample = path.read_text(encoding="utf-8", errors="ignore")[:4096]
 
     try:
-        dialect = csv.Sniffer().sniff(sample)
+        dialect = csv.Sniffer().sniff(sample, delimiters="".join(_COMMON_DELIMITERS))
         return dialect.delimiter
     except csv.Error:
         pass
 
-    common_delimiters = (";", ",", "\t", "|")
-
-    counts = {
-        delimiter: sample.count(delimiter)
-        for delimiter in common_delimiters
-    }
+    counts = {delimiter: sample.count(delimiter) for delimiter in _COMMON_DELIMITERS}
 
     best_delimiter, count = max(
         counts.items(),
         key=lambda item: item[1],
     )
 
-    if count > 0:
-        return best_delimiter
-
-    raise ValueError(
-        f"Could not detect a CSV delimiter in '{path.name}'. "
-        "The file does not appear to contain any common delimiters "
-        "(;, ,, \\t, |). Is it a valid CSV file?"
-    )
+    return best_delimiter if count > 0 else _DEFAULT_DELIMITER
 
 
 def read_csv(path: Path) -> pd.DataFrame:
@@ -75,11 +69,17 @@ def read_parquet(path: Path) -> pd.DataFrame:
     return pd.read_parquet(path)
 
 
+def read_excel(path: Path) -> pd.DataFrame:
+    """Read the first sheet of an Excel workbook into a DataFrame."""
+    return pd.read_excel(path, engine="openpyxl")
+
+
 READERS: dict[str, Callable[[Path], pd.DataFrame]] = {
     ".csv": read_csv,
     ".json": read_json,
     ".parquet": read_parquet,
     ".pq": read_parquet,
+    ".xlsx": read_excel,
 }
 
 
@@ -107,8 +107,37 @@ def read_file(path: Path) -> pd.DataFrame:
     except KeyError:
         supported = ", ".join(sorted(READERS))
         raise ValueError(
-            f"Unsupported file format '{path.suffix}'. "
-            f"Supported formats: {supported}"
+            f"Unsupported file format '{path.suffix}'. Supported formats: {supported}"
         ) from None
 
     return reader(path)
+
+
+def discover_input_files(paths: Iterable[Path], pattern: str = "*") -> list[Path]:
+    """
+    Resolve a mix of files and directories into a flat, sorted list of files.
+
+    Directories are expanded (non-recursively) using `pattern`, keeping only
+    files with a supported extension; files are matched case-insensitively
+    on extension so a stray ".CSV" is still picked up. A path passed
+    explicitly (not inside a directory) is kept as-is even with an
+    unsupported extension, so the error surfaces later, per file, instead of
+    silently skipping something the user asked for by name.
+    """
+
+    files: list[Path] = []
+
+    for path in paths:
+        path = Path(path)
+
+        if path.is_dir():
+            matched = sorted(
+                entry
+                for entry in path.glob(pattern)
+                if entry.is_file() and entry.suffix.lower() in READERS
+            )
+            files.extend(matched)
+        else:
+            files.append(path)
+
+    return files

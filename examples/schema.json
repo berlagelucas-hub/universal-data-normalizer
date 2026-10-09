@@ -1,0 +1,19 @@
+{
+    "columns": {
+        "first_name": {
+            "required": true,
+            "dtype": "string",
+            "nullable": false
+        },
+        "last_name": {
+            "required": true,
+            "dtype": "string",
+            "nullable": true
+        },
+        "age": {
+            "required": false,
+            "dtype": "integer",
+            "nullable": true
+        }
+    }
+}

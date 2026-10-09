@@ -19,11 +19,17 @@ def write_parquet(df: pd.DataFrame, path: Path) -> None:
     df.to_parquet(path, index=False)
 
 
+def write_excel(df: pd.DataFrame, path: Path) -> None:
+    """Write a DataFrame as an Excel workbook."""
+    df.to_excel(path, index=False, engine="openpyxl")
+
+
 WRITERS: dict[str, Callable[[pd.DataFrame, Path], None]] = {
     ".csv": write_csv,
     ".json": write_json,
     ".parquet": write_parquet,
     ".pq": write_parquet,
+    ".xlsx": write_excel,
 }
 
 
@@ -45,8 +51,7 @@ def write_file(df: pd.DataFrame, path: Path) -> None:
     except KeyError:
         supported = ", ".join(sorted(WRITERS))
         raise ValueError(
-            f"Unsupported file format '{path.suffix}'. "
-            f"Supported formats: {supported}"
+            f"Unsupported file format '{path.suffix}'. Supported formats: {supported}"
         ) from None
 
     writer(df, path)
