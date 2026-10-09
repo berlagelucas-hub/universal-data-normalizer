@@ -4,19 +4,29 @@ __pycache__/
 build/
 dist/
 wheels/
-*.egg-info
+*.egg-info/
 
 # Virtual environments
 .venv
 
-# Test/coverage artifacts
+# Test/coverage/lint artifacts
 .coverage
 coverage.xml
 htmlcov/
 .pytest_cache/
+.ruff_cache/
 
 # Editor lock files
 .~lock.*#
 
+# Editor/IDE directories
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
 # Local run output (not part of the published examples)
 /output.*
+/out/

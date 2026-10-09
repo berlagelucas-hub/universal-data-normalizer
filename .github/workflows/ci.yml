@@ -136,10 +136,10 @@ jobs:
           context: .
           file: ./Dockerfile
           load: true
-          tags: python-service-template:latest
+          tags: universal-data-normalizer:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Smoke test
         run: |
-          docker run --rm python-service-template:latest python -m universal_data_normalizer --help
+          docker run --rm universal-data-normalizer:latest python -m universal_data_normalizer --help
